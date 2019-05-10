@@ -11,6 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-interface ArticleRepository extends JpaRepository<ArticleModel, Integer> {
+public interface ArticleRepository extends JpaRepository<ArticleModel, Integer> {
 
 }
