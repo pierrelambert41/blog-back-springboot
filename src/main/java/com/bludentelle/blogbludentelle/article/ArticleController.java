@@ -1,5 +1,6 @@
 package com.bludentelle.blogbludentelle.article;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +16,19 @@ public class ArticleController {
     @Autowired
     ArticleRepository arp;
 
+    @CrossOrigin
     @GetMapping("/articles")
     public List<ArticleModel> findAll() {
         return arp.findAll();
     }
 
-    @PostMapping("/posts")
+
+    @PostMapping("/articles")
     public ArticleModel createArticle(@Valid @RequestBody ArticleModel article) {
         return arp.save(article);
     }
 
-    @PutMapping("/posts/{id}")
+    @PutMapping("/articles/{id}")
     public ArticleModel updateArticle(@PathVariable int articleId, @Valid @RequestBody ArticleModel articleRequest) {
         return arp.findById(articleId).map(articleModel -> {
             articleModel.setTitle(articleRequest.getTitle());
@@ -37,7 +40,7 @@ public class ArticleController {
         }).orElseThrow(() -> new ResourceNotFoundException("ArticleId" + articleId + "not found"));
     }
 
-    @DeleteMapping("/posts/{postId}")
+    @DeleteMapping("/articles/{articleId}")
     public ResponseEntity<?> deletePost(@PathVariable int articleId) {
         return arp.findById(articleId).map(post -> {
             arp.delete(post);
