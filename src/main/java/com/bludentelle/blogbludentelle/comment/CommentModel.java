@@ -1,7 +1,10 @@
 package com.bludentelle.blogbludentelle.comment;
 
+import com.bludentelle.blogbludentelle.article.ArticleModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -38,7 +41,12 @@ public class CommentModel {
     String email;
 
     @NonNull
-    @Column(name="created_date", nullable = false, length = 50)
+    @Column(name="created_at", nullable = false, length = 50)
     @ApiModelProperty(value = "date d'un commentaire", example="2019-05-12", required=true)
     Date createdDatetime;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "article_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    ArticleModel article;
 }
