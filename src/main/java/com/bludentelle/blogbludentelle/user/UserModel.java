@@ -30,4 +30,9 @@ public class UserModel {
     @Column(name="lastname", nullable = false, length = 50)
     @ApiModelProperty(value = "nom d'un utilisateur", example="Lambert", required=true)
     String lastname;
+
+    @NonNull
+    @Column(name="email", nullable = false)
+    @ApiModelProperty(value = "email de l'utilisateur", example = "lambertaurelie17@gmail.com", required = true)
+    String email;
 }
