@@ -48,7 +48,7 @@ public class CommentController {
         }).orElseThrow(() -> new ResourceNotFoundException("CommentId " + commentId + "not found"));
     }
 
-    @DeleteMapping("/posts/{postId}/comments/{commentId}")
+    @DeleteMapping("/articles/{articleId}/comments/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable (value = "articleId") int articleId,
                                            @PathVariable (value = "commentId") int commentId) {
         return commentRepository.findByIdAndArticleId(commentId, articleId).map(comment -> {
